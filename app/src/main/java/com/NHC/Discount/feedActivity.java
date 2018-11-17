@@ -8,6 +8,10 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.ListView;
+import android.widget.Toast;
+
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -30,11 +34,15 @@ public class feedActivity extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_ads, menu);
+
 
         MenuInflater menuInflater = getMenuInflater();
         menuInflater.inflate(R.menu.add_post, menu);
 
         return super.onCreateOptionsMenu(menu);
+
+
     }
 
     @Override
@@ -48,12 +56,14 @@ public class feedActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+
     }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_feed);
+
 
         listView = findViewById(R.id.listview1);
         useremailFromFB = new ArrayList<String>();
@@ -67,8 +77,18 @@ public class feedActivity extends AppCompatActivity {
         listView.setAdapter(adapter);
 
         getDataFromFirebase();
+        AdView adView = (AdView) findViewById(R.id.adView);
+        AdRequest adRequest = new AdRequest.Builder()
+                .setRequestAgent("android_studio:ad_template").build();
+        adView.loadAd(adRequest);
+
+
 
     }
+
+
+
+
 
 
     public void getDataFromFirebase(){
@@ -103,7 +123,10 @@ public class feedActivity extends AppCompatActivity {
             public void onCancelled(@NonNull DatabaseError databaseError) {
 
             }
+
         });
 
+
     }
+
 }
