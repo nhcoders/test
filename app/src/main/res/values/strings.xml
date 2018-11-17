@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">Discount</string>
+    <string name="title_activity_feed">feedActivity</string>
+</resources>
